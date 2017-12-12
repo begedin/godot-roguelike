@@ -1,6 +1,7 @@
 extends AnimatedSprite
 
 signal turn_end
+signal energy_change
 
 const UNIT_RIGHT = Vector2(1, 0)
 const UNIT_DOWN = Vector2(0, 1)
@@ -14,7 +15,7 @@ onready var ray_casts = {
 	UNIT_UP: self.get_node('RayCast2DUp')
 }
 
-export var energy = 100
+export (int) var energy = 100 setget _set_energy
 export var damage = 1
 
 onready var __area = self.get_node('Area2D')
@@ -29,7 +30,7 @@ func transition_to(state):
 func activate():
 	var state_name = self.__idle_state()
 	self.transition_to(self.__states.get_node(state_name))
-	
+
 func __idle_state():
 	if self.is_in_group('player'):
 		return 'IdlePlayer'
@@ -48,3 +49,7 @@ func _input(event):
 
 func _fixed_process(delta_time):
 	self.__state.update(self, delta_time)
+
+func _set_energy(value):
+	energy = value
+	emit_signal('energy_change', self)
