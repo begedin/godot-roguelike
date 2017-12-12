@@ -1,6 +1,6 @@
 extends 'Area2D.gd'
 
-const SPRITE_PATH = 'res://Sprites/TileSet/%s%s.png'
+const SPRITE_PATH = 'res://Assets/Sprites/TileSet/%s%s.png'
 
 export var sprite = ''
 export var hp = 3
@@ -13,11 +13,9 @@ var __time_total = 0.1
 var __amplitude = 3
 
 func _ready():
-	self.parent.get_texture().load(SPRITE_PATH % [self.sprite, ''])
+	self.parent.set_texture(load(SPRITE_PATH % [self.sprite, '']))
 
 func take_damage(damage):
-	print('take damage')
-	print(damage)
 	self.set_process(true)
 	self.__time = 0
 	self.hp -= damage
@@ -25,7 +23,6 @@ func take_damage(damage):
 		self.parent.queue_free()
 	if not self.__sprite_damage_set:
 		var texture_path = SPRITE_PATH % [self.sprite, '_dmg']
-		print(texture_path)
 		self.parent.set_texture(load(texture_path))
 		
 func _process(delta_time):

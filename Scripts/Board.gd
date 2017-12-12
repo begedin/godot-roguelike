@@ -81,6 +81,4 @@ func fetch_tiles(tile_set_filepath, size_node_name):
 	self.tile_collection.tile_size = (tile_set.get_node(size_node_name).get_texture().get_size())
 
 func _ready():
-	# Called every time the node is added to the scene.
-	# Initialization here
 	pass

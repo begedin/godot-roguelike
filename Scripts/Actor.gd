@@ -27,8 +27,6 @@ func transition_to(state):
 	self.__state.enter(self)
 	
 func activate():
-	if self.is_in_group('player'):
-		print(self.energy)
 	var state_name = self.__idle_state()
 	self.transition_to(self.__states.get_node(state_name))
 	
